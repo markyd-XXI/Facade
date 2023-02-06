@@ -27,7 +27,6 @@ public class ThirdPartyApi {
 
     public Response isOrderReady(int orderId){
         Response response = new Response();
-        boolean isOrderReady = false;
         String status = orderService.getOrderStatus(orderId);
         response.setStatusCode(200);
         System.out.println("---Setting status code");
@@ -35,10 +34,10 @@ public class ThirdPartyApi {
         System.out.println("---Setting status");
         if(status == "Complete"){
             System.out.println("---Checking value of order status");
-            isOrderReady = true;
+            response.setMessage(String.format("Order %s is ready", orderId));
             System.out.println("---isOrderReady boolean");
         }
-        response.setMessage(String.valueOf(isOrderReady));
+
         System.out.println("---Setting message");
         return response;
     }
@@ -52,7 +51,8 @@ public class ThirdPartyApi {
             response.setStatusCode(200);
             System.out.println("---Setting status code");
             response.setStatus("Success");
-            System.out.println("---Setting message");
+            System.out.println("---Setting status");
+            response.setMessage(String.format("Order %s cancelled", orderId));
         }
 
         return response;
